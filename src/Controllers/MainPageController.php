@@ -2,27 +2,28 @@
 
     namespace App\Controllers;
 
-    use \Api\ApiConnection;
-    use \App\Queries\CurrencyQueries;
-    use Config\DataBaseConnection;
+    use Api\ApiConnection;
+    use App\Queries\CurrencyQueries;
+    use App\Views\CurrencyTable;
 
     define("API_REQUEST", "https://api.nbp.pl/api/exchangerates/tables/A?format=json");
 
-    class MainPageController extends CurrencyQueries
+    class MainPageController extends CurrencyTable
     {
         protected $api_response = null;
-        protected $con = null;
+        protected $currencyQueries = null;
 
         public function __construct()
         {
             $this->api_response = ApiConnection::connect(API_REQUEST);
-            $this->con = DataBaseConnection::connect();
+            $this->currencyQueries = new CurrencyQueries();
         }
 
-        public function showResponse() 
+        public function showResponse(): void
         {
-            // run needed function to update table with new price of currencies
-            $this->setCurrencies($this->api_response);
+            // run needed function to update table with price of currencies or add news
+            $this->currencyQueries->setCurrencies($this->api_response);
+            $this->showTable();
         }
     }
 
