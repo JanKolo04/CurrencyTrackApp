@@ -3,28 +3,44 @@
     namespace App\Controllers;
 
     use Api\ApiConnection;
-    use App\Queries\CurrencyQueries;
-    use App\Views\CurrencyTable;
 
     define("API_REQUEST", "https://api.nbp.pl/api/exchangerates/tables/A?format=json");
 
-    class MainPageController extends CurrencyTable
+    class MainPageController extends BaseController
     {
-        protected $api_response = null;
-        protected $currencyQueries = null;
+        private $api_response = null;
 
-        public function __construct()
+        /**
+         * setApiResponse() method to set value into $api_response property and I decidet to put this here
+         * not in BaseController, because every controller will be have it's own api response
+         * 
+         * @return void
+         */
+        private function setApiResponse(): void
         {
             $this->api_response = ApiConnection::connect(API_REQUEST);
-            $this->currencyQueries = new CurrencyQueries();
         }
 
-        public function showResponse(): void
+        /**
+         * show() method to render main page with twig
+         * 
+         * @return void
+         */
+        public function show(): void
         {
-            // run needed function to update table with price of currencies or add news
+            // run setApiResponse
+            $this->setApiResponse();
+            // run function setCurrencies() to update table with price of currencies or add news
             $this->currencyQueries->setCurrencies($this->api_response);
-            $this->showTable();
+            // fetch all currencies from databse
+            $currencies = $this->currencyQueries->getCurrencies();
+
+            // render template 'main.html.twig' and pass to him currencies two-dimensional array
+            echo $this->twig->render(
+                "main.html.twig",
+                ["currencies" => $currencies]
+            );
         }
     }
-
+    
 ?>

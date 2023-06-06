@@ -19,7 +19,7 @@
             switch($this->file) {
                 case(''):
                     $mainPage = new MainPageController();
-                    $mainPage->showResponse();
+                    $mainPage->show();
                     break;
                 default:
                     include 'src/error.php';

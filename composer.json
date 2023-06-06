@@ -3,8 +3,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Api\\": "api",
-            "Config\\": "config",
+            "Api\\": "api/",
+            "Config\\": "config/",
             "App\\": "src/"
         }
     },
@@ -14,5 +14,7 @@
             "email": "jankolodziej04@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/twig": "^3.6"
+    }
 }

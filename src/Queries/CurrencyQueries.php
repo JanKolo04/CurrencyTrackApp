@@ -13,6 +13,12 @@
             $this->con = DataBaseConnection::connect();
         }
 
+        /**
+         * setCurrencies() method to insert or update currencies data in database
+         * 
+         * @param array $allCurrenciesArray array of all currencies which was fetched from api
+         * @return void
+         */
         public function setCurrencies(array $allCurrenciesArray): void
         {
             // insert into databse every currency from response
@@ -30,7 +36,12 @@
             }
         }
 
-        public function getCurrencies(): ?array
+        /**
+         * getCurrencies() method to fetch all currencies from database
+         * 
+         * @return object|null
+         */
+        public function getCurrencies(): ?object
         {
             $sql = "SELECT * FROM currencies";
             $query = $this->con->query($sql);
