@@ -1,0 +1,15 @@
+{
+    "name": "jankolodziej/currency-track-app",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+        }
+    },
+    "authors": [
+        {
+            "name": "JanKolo04",
+            "email": "jankolodziej04@gmail.com"
+        }
+    ],
+    "require": {}
+}
