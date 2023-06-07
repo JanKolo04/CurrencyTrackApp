@@ -2,7 +2,7 @@
 
     namespace Config;
 
-    use App\Controllers\MainPageController;
+    use App\Controllers;
 
     class Routes {
         public $file;
@@ -18,11 +18,16 @@
             // check whether request is in switch
             switch($this->file) {
                 case(''):
-                    $mainPage = new MainPageController();
+                    $mainPage = new Controllers\MainPageController();
                     $mainPage->show();
                     break;
+                case('/CurrencyTrackApp/currency'):
+                    #include("src/Controllers/CurrencyConverterController.php");
+                    $currencyConverter = new Controllers\CurrencyConverterController();
+                    $currencyConverter->show();
+                    break;
                 default:
-                    include 'src/error.php';
+                    echo $this->file;
             }
         }
     }

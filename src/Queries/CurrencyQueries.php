@@ -4,7 +4,7 @@
 
     use Config\DataBaseConnection;
 
-    class CurrencyQueries
+    class CurrencyQueries extends ValidQueries
     {
         private $con = null;
 
@@ -46,12 +46,23 @@
             $sql = "SELECT * FROM currencies";
             $query = $this->con->query($sql);
 
-            if($query->num_rows > 0 && $query != false) {
-                return $query;
-            }
-            else {
-                return null;
-            }
+            // valid query
+            return $this->valid($query);
+        }
+
+        /**
+         * findCurrencyByCode() method to find currency in database by code
+         * 
+         * @param string $code string with currency code
+         * @return object|null
+         */
+        public function findCurrencyByCode(string $code): ?object
+        {
+            $sql = "SELECT * FROM currencies WHERE code='{$code}'";
+            $query = $this->con->query($sql);
+
+            // valid query
+            return $this->valid($query);
         }
     }
 
