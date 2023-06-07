@@ -2,7 +2,7 @@
 
     namespace Config;
 
-    use \App\Controllers\MainPageController;
+    use App\Controllers\MainPageController;
 
     class Routes {
         public $file;
