@@ -31,6 +31,25 @@
         {
             $this->currencyQueries->setCurrencies($this->api_response);
         }
+
+        protected function renderCurrencyConverterPage(array $request_data, ?array $error_messages, ?float $convertedAmmount)
+        {
+            // if $convertedAmmount isn't null add to results section class to show
+            $displayResults = "hidde";
+            if($convertedAmmount != null) {
+                $displayResults = "show";
+            }
+
+            echo $this->twig->render(
+                "currency_converter.html.twig",
+                [   
+                    "converted_ammount" => $convertedAmmount,
+                    "request_data" => $request_data,
+                    "error_messages" => $error_messages,
+                    "displayResults" => $displayResults
+                ]
+            );
+        }
     }
 
 ?>

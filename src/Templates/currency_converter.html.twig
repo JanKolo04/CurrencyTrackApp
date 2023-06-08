@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Track App - Currency converter</title>
+</head>
+<body>
+
+    <form method="POST" action="/CurrencyTrackApp/currency">
+        <input type="number" name="ammount" min="0" value={{ request_data.ammount }}>
+        <span class="error_message">{{ error_messages.ammount }}</span>
+
+        <select name="first_currency">
+            <option selected disabled>Select currency</option>
+            <option value="USD">USD</option>
+            <option value="EURO">EUR</option>
+            <option value="CHF">CHF</option>
+        </select>
+        <span class="error_message">{{ error_messages.first_currency }}</span>
+
+        <select name="second_currency">
+            <option selected disabled>Select currency</option>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>CHF</option>
+        </select>
+        <span class="error_message">{{ error_messages.second_currency }}</span>
+
+        <button type="submit" name="convert">Convert</button>
+    </form>
+
+    <section id="results_section" class={{ displayResults }}>
+        <h3>Results</h3>
+        <p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p>
+    </section>
+
+</body>
+</html>
