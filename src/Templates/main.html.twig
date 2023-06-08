@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Track App - Main Page</title>
+</head>
+<body>
+
+    <table border=1>
+        <thead>
+            <th>Lp.</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Price</th>
+        </thead>
+
+        <tboody>
+        {% for currency in currencies %}
+            <tr>
+                <td>{{ currency.currency_id }}</td>
+                <td>{{ currency.name }}</td>
+                <td>{{ currency.code }}</td>
+                <td>{{ currency.price }}</td>
+            </tr>
+        {% endfor %}
+        </tboody>
+    </table>
+
+</body>
+</html>

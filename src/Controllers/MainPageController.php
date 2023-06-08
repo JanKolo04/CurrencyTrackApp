@@ -2,27 +2,26 @@
 
     namespace App\Controllers;
 
-    use \Api\ApiConnection;
-    use \App\Queries\CurrencyQueries;
-    use Config\DataBaseConnection;
-
-    define("API_REQUEST", "https://api.nbp.pl/api/exchangerates/tables/A?format=json");
-
-    class MainPageController extends CurrencyQueries
+    class MainPageController extends BaseController
     {
-        protected $api_response = null;
-        protected $con = null;
-
-        public function __construct()
+        /**
+         * show() method to render main page with twig
+         * 
+         * @return void
+         */
+        public function show(): void
         {
-            $this->api_response = ApiConnection::connect(API_REQUEST);
-            $this->con = DataBaseConnection::connect();
-        }
+            // update currency data
+            $this->updateCurrencyData();
+            
+            // fetch all currencies from databse
+            $currencies = $this->currencyQueries->getCurrencies();
 
-        public function showResponse() 
-        {
-            // run needed function to update table with new price of currencies
-            $this->setCurrencies($this->api_response);
+            // render template 'main.html.twig' and pass to him currencies two-dimensional array
+            echo $this->twig->render(
+                "main.html.twig",
+                ["currencies" => $currencies]
+            );
         }
     }
 

@@ -2,37 +2,70 @@
 
     namespace App\Queries;
 
-    class CurrencyQueries
-    {
+    use Config\DataBaseConnection;
 
-        public function setCurrencies(array $allCurrenciesArray)
+    class CurrencyQueries extends ValidQueries
+    {
+        private $con = null;
+
+        public function __construct()
+        {
+            $this->con = DataBaseConnection::connect();
+        }
+
+        /**
+         * setCurrencies() method to insert or update currencies data in database
+         * 
+         * @param array $allCurrenciesArray array of all currencies which was fetched from api
+         * @return void
+         */
+        public function setCurrencies(array $allCurrenciesArray): void
         {
             // insert into databse every currency from response
-            foreach($allCurrenciesArray as $oneCurrencyArray) {
+            foreach($allCurrenciesArray as $currencyArray) {
                 // if currency isset in database update with new price,
                 // but if not insert new currency
                 $sql = "INSERT INTO currencies(name, code, price) VALUES(
-                    '{$oneCurrencyArray['currency']}',
-                    '{$oneCurrencyArray['code']}',
-                    {$oneCurrencyArray['mid']}) 
+                    '{$currencyArray['currency']}',
+                    '{$currencyArray['code']}',
+                    {$currencyArray['mid']}) 
                     ON DUPLICATE KEY UPDATE
-                    price={$oneCurrencyArray['mid']}";
+                    price={$currencyArray['mid']}";
                 
                 $query = $this->con->query($sql);
             }
         }
 
-        public function getCurrencies()
+        /**
+         * getCurrencies() method to fetch all currencies from database
+         * 
+         * @return object|null
+         */
+        public function getCurrencies(): ?object
         {
             $sql = "SELECT * FROM currencies";
             $query = $this->con->query($sql);
 
-            if($query->num_rows > 0 && $query != false) {
-                return $query->fetch_assco();
+            // valid query
+            return $this->valid($query);
+        }
+
+        /**
+         * findCurrencyByCode() method to find currency in database by code
+         * 
+         * @param string $code string with currency code
+         * @return object|null
+         */
+        public function findCurrencyByCode(string $code): ?float
+        {
+            $sql = "SELECT price FROM currencies WHERE code='{$code}'";
+            $query = $this->con->query($sql);
+
+            // valid query
+            if($this->valid($query)) {
+                return $query->fetch_assoc()['price'];
             }
-            else {
-                return null;
-            }
+            return null;
         }
     }
 
