@@ -11,17 +11,14 @@
          */
         public function show(): void
         {
-            // update currency data
-            $this->updateCurrencyData();
+            // update currency data to work with fresh data
+            $this->currencyQueries->setCurrencies($this->api_response);
             
             // fetch all currencies from databse
             $currencies = $this->currencyQueries->getCurrencies();
 
             // render template 'main.html.twig' and pass to him currencies two-dimensional array
-            echo $this->twig->render(
-                "main.html.twig",
-                ["currencies" => $currencies]
-            );
+            $this->renderMainPage($currencies);
         }
     }
 

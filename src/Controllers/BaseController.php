@@ -22,14 +22,12 @@
             $this->api_response = ApiConnection::connect(API_REQUEST);
         }
 
-        /**
-         * updateCurrencyData() method to update or insert currency data which are in databse
-         * 
-         * @return void
-         */
-        protected function updateCurrencyData(): void
+        protected function renderMainPage(object $currencies)
         {
-            $this->currencyQueries->setCurrencies($this->api_response);
+            echo $this->twig->render(
+                "main.html.twig",
+                ["currencies" => $currencies]
+            );
         }
 
         protected function renderCurrencyConverterPage(array $request_data, ?array $error_messages, ?float $convertedAmmount)
