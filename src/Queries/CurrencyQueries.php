@@ -56,13 +56,16 @@
          * @param string $code string with currency code
          * @return object|null
          */
-        public function findCurrencyByCode(string $code): ?object
+        public function findCurrencyByCode(string $code): ?float
         {
-            $sql = "SELECT * FROM currencies WHERE code='{$code}'";
+            $sql = "SELECT price FROM currencies WHERE code='{$code}'";
             $query = $this->con->query($sql);
 
             // valid query
-            return $this->valid($query);
+            if($this->valid($query)) {
+                return $query->fetch_assoc()['price'];
+            }
+            return null;
         }
     }
 

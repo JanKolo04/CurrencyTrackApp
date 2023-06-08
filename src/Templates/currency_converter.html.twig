@@ -6,14 +6,14 @@
 </head>
 <body>
 
-    <form method="POST">
-        <input type="number" name="ammount" min="0" value={{ ammount }}>
+    <form method="POST" action="/CurrencyTrackApp/currency">
+        <input type="number" name="ammount" min="0" value={{ request_data.ammount }}>
         <span class="error_message">{{ error_messages.ammount }}</span>
 
         <select name="first_currency">
             <option selected disabled>Select currency</option>
             <option value="USD">USD</option>
-            <option value="EURO">EURO</option>
+            <option value="EURO">EUR</option>
             <option value="CHF">CHF</option>
         </select>
         <span class="error_message">{{ error_messages.first_currency }}</span>
@@ -21,7 +21,7 @@
         <select name="second_currency">
             <option selected disabled>Select currency</option>
             <option>USD</option>
-            <option>EURO</option>
+            <option>EUR</option>
             <option>CHF</option>
         </select>
         <span class="error_message">{{ error_messages.second_currency }}</span>
@@ -31,7 +31,7 @@
 
     <section id="results_section">
         <h3>Results</h3>
-        <p>{{ first_currency }}: {{ ammount }}  ->  {{ second_currency }} {{ converted_ammount }}</p>
+        <p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p>
     </section>
 
 </body>
