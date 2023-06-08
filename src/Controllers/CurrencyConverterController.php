@@ -5,18 +5,22 @@
     class CurrencyConverterController extends BaseController
     {
         private $error_messages = array();
-        private $convertedAmmount = null;
 
-        private function validationData(int $ammount, string $firstCurrency, string $secondCurrency): void
+        /**
+         * validationData() method to valid entered data
+         * 
+         * @return void
+         */
+        private function validationData(): void
         {   
             // check what has not been selected or entered and add new data into array with error messages
-            if(empty($ammount)) {
+            if(empty($_POST['ammount'])) {
                 $this->error_messages += array("ammount" => "Ammount has not been entered");
             }
-            else if(empty($firstCurrency)) {
+            if(empty($_POST['first_currency'])) {
                 $this->error_messages += array("first_currency" => "First currency has been not selected");
             }
-            else if(empty($secondCurrency)) {
+            if(empty($_POST['second_currency'])) {
                 $this->error_messages += array("second_currency" => "Second currency has been not selected");
             }
         }
@@ -55,29 +59,22 @@
             // check whether user click convert button
             if(isset($_POST['convert'])) {
                 // run method with validation
-                $this->validationData($_POST['ammount'], $_POST['first_currency'], $_POST['second_currency']);
+                $this->validationData();
                 
                 // check whther $error_messages array is empty
                 if(empty($this->error_messages)) {
                     // run method convertCurrency()
-                    $this->convertedAmmount = $this->convertCurrency($_POST['ammount'], $_POST['first_currency'], $_POST['second_currency']);
-                    echo $this->twig->render(
-                        "currency_converter.html.twig",
-                        [
-                            "request_data" => $_POST,
-                            "converted_ammount" => $this->convertedAmmount
-                        ]
-                    );
+                    $convertedAmmount = $this->convertCurrency($_POST['ammount'], $_POST['first_currency'], $_POST['second_currency']);
+                    // run method to render page for Currency converter
+                    $this->renderCurrencyConverterPage($_POST, null, $convertedAmmount);
+                }
+                else {
+                    $this->renderCurrencyConverterPage($_POST, $this->error_messages, null);
                 }
             }
             else {
-                echo $this->twig->render(
-                    "currency_converter.html.twig",
-                    [   
-                        "request_data" => $_POST,
-                        "error_messages" => $this->error_messages
-                    ]
-                );
+                // run method to render page for Currency converter
+                $this->renderCurrencyConverterPage($_POST, $this->error_messages, null);
             }
         }
     }

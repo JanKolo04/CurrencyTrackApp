@@ -29,7 +29,7 @@
         <button type="submit" name="convert">Convert</button>
     </form>
 
-    <section id="results_section">
+    <section id="results_section" class={{ displayResults }}>
         <h3>Results</h3>
         <p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p>
     </section>
