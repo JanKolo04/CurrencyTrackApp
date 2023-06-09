@@ -1,0 +1,25 @@
+.navbar {
+    padding: 8px 10px !important;
+}
+
+.h3 {
+    margin-bottom: 20px !important;
+}
+
+.table-section {
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+@media only screen and (max-width: 1240px) {
+    .table-section {
+        width: 70% !important;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    .table-section {
+        width: 98% !important;
+    }
+}
