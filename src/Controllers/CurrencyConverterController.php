@@ -25,6 +25,13 @@
             }
         }
 
+        /**
+         * getExchangeRate() method to calculate exchange between two currencies
+         * 
+         * @param string $firstCode code of first selected currency
+         * @param string $secondCode code of second selected currency
+         * @return float
+         */
         private function getExchangeRate(string $firstCode, string $secondCode): float
         {
             // get price of first and second currency
@@ -37,6 +44,14 @@
             return $exchangeRate;
         }
 
+        /**
+         * convertCurrency() method to convert ammount in first select currency to second selected currency
+         * 
+         * @param int $ammount entered ammount
+         * @param string $firstCode code of first selected currency
+         * @param string $secondCode code of second selected currency
+         * @return float
+         */
         private function convertCurrency(int $ammount, string $firstCode, string $secondCode): float
         {   
             // calculate exchange rate bettween two currencies
@@ -51,10 +66,15 @@
             return $convertedAmmount;
         }
 
+        /**
+         * show() method to make lasts operation which are necessary to render page
+         * 
+         * @return void
+         */
         public function show(): void
         {   
             // update currency data to work with fresh data
-            $this->updateCurrencyData();
+            $this->currencyQueries->setCurrencies($this->api_response);
 
             // check whether user click convert button
             if(isset($_POST['convert'])) {
@@ -65,6 +85,9 @@
                 if(empty($this->error_messages)) {
                     // run method convertCurrency()
                     $convertedAmmount = $this->convertCurrency($_POST['ammount'], $_POST['first_currency'], $_POST['second_currency']);
+                    // upload last convert into database
+                    $this->lastConvertsQueries->uploadConvert($_POST['ammount'], $convertedAmmount, $_POST['first_currency'], $_POST['second_currency']);
+                    
                     // run method to render page for Currency converter
                     $this->renderCurrencyConverterPage($_POST, null, $convertedAmmount);
                 }
