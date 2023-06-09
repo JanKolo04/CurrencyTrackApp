@@ -12,17 +12,31 @@
 
         <select name="first_currency">
             <option selected disabled>Select currency</option>
-            <option value="USD">USD</option>
-            <option value="EURO">EUR</option>
-            <option value="CHF">CHF</option>
+            {# print all currencies #}
+            {% for currency in currencies %}
+                {# if current code equals code which was selected add 'selected' into option #}
+                {% if currency.code == request_data.first_currency %}
+                    <option selected>{{ currency.code }}</option>
+                {% endif %}
+
+                {# print basic option #}
+                <option>{{ currency.code }}</option>
+            {% endfor %}
         </select>
         <span class="error_message">{{ error_messages.first_currency }}</span>
 
         <select name="second_currency">
             <option selected disabled>Select currency</option>
-            <option>USD</option>
-            <option>EUR</option>
-            <option>CHF</option>
+            {# print all currencies #}
+            {% for currency in currencies %}
+                {# if current code equals code which was selected add 'selected' into option #}
+                {% if currency.code == request_data.second_currency %}
+                    <option selected>{{ currency.code }}</option>
+                {% endif %}
+
+                {# print basic option #}
+                <option>{{ currency.code }}</option>
+            {% endfor %}
         </select>
         <span class="error_message">{{ error_messages.second_currency }}</span>
 
@@ -32,6 +46,30 @@
     <section id="results_section" class={{ displayResults }}>
         <h3>Results</h3>
         <p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p>
+    </section>
+
+    <section id="last_converts">
+        <table border=1>
+            <thead>
+                <th>Lp.</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Ammount</th>
+                <th>Converted ammount</th>
+            </thead>
+
+            <tboody>
+            {% for convert in converts %}
+                <tr>
+                    <td>{{ convert.converts_id }}</td>
+                    <td>{{ convert.first_currency }}</td>
+                    <td>{{ convert.second_currency }}</td>
+                    <td>{{ convert.ammount }}</td>
+                    <td>{{ convert.converted_ammount }}</td>
+                </tr>
+            {% endfor %}
+            </tboody>
+        </table>
     </section>
 
 </body>

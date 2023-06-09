@@ -39,15 +39,14 @@
         /**
          * getCurrencies() method to fetch all currencies from database
          * 
-         * @return object|null
+         * @return object
          */
-        public function getCurrencies(): ?object
+        public function getCurrencies(): object
         {
             $sql = "SELECT * FROM currencies";
             $query = $this->con->query($sql);
 
-            // valid query
-            return $this->valid($query);
+            return $query;
         }
 
         /**
