@@ -45,11 +45,11 @@
          * some operations which are necessary
          * 
          * @param array $request_data assoc array which user send in form
-         * @param array|null $error_messages assoc array with errors
+         * @param array|null $errors assoc array with errors
          * @param float|null $convertedAmmount converted ammount from first to second currency
          * @return void
          */
-        protected function renderCurrencyConverterPage(array $request_data, ?array $error_messages, ?float $convertedAmmount): void
+        protected function renderCurrencyConverterPage(array $request_data, ?array $errors, ?float $convertedAmmount): void
         {
             // if $convertedAmmount isn't null add to results section class to show
             $displayResults = "hidde";
@@ -62,14 +62,14 @@
 
             // get lasts converts
             $lastConverts = $this->lastConvertsQueries->getConverts();
-
+            
             // render page
             echo $this->twig->render(
                 "currency_converter.html.twig",
                 [   
                     "converted_ammount" => $convertedAmmount,
                     "request_data" => $request_data,
-                    "error_messages" => $error_messages,
+                    "errors" => $errors,
                     "displayResults" => $displayResults,
                     "currencies" => $currencies,
                     "converts" => $lastConverts

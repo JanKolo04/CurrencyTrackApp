@@ -4,7 +4,7 @@
 
     class CurrencyConverterController extends BaseController
     {
-        private $error_messages = array();
+        private $errors = array();
 
         /**
          * validationData() method to valid entered data
@@ -12,16 +12,33 @@
          * @return void
          */
         private function validationData(): void
-        {   
+        {
             // check what has not been selected or entered and add new data into array with error messages
-            if(empty($_POST['ammount'])) {
-                $this->error_messages += array("ammount" => "Ammount has not been entered");
+            if(empty($_POST['ammount']) && $_POST['ammount'] != 0) {
+                $this->errors += array('ammount' => array(
+                    "message" => "Ammount has not been entered",
+                    "invalid" => "is-invalid"
+                ));
             }
             if(empty($_POST['first_currency'])) {
-                $this->error_messages += array("first_currency" => "First currency has been not selected");
+                $this->errors += array('first_currency' => array(
+                    "message" => "First currency has been not selected",
+                    "invalid" => "is-invalid"
+                ));
             }
             if(empty($_POST['second_currency'])) {
-                $this->error_messages += array("second_currency" => "Second currency has been not selected");
+                $this->errors += array('second_currency' => array(
+                    "message" => "Second currency has been not selected", 
+                    "invalid" => "is-invalid"
+                ));
+            }
+            
+            // if ammount is less than 1 or more than 100000000 return error on ammount input
+            if($_POST['ammount'] < 1 || $_POST['ammount'] > 100000000) {
+                $this->errors += array('ammount' => array(
+                    "message" => "Ammount can't be more than 100000000 and less than 1",
+                    "invalid" => "is-invalid"
+                ));
             }
         }
 
@@ -81,8 +98,8 @@
                 // run method with validation
                 $this->validationData();
                 
-                // check whther $error_messages array is empty
-                if(empty($this->error_messages)) {
+                // check whther $errors array is empty
+                if(empty($this->errors)) {
                     // run method convertCurrency()
                     $convertedAmmount = $this->convertCurrency($_POST['ammount'], $_POST['first_currency'], $_POST['second_currency']);
                     // upload last convert into database
@@ -92,12 +109,12 @@
                     $this->renderCurrencyConverterPage($_POST, null, $convertedAmmount);
                 }
                 else {
-                    $this->renderCurrencyConverterPage($_POST, $this->error_messages, null);
+                    $this->renderCurrencyConverterPage($_POST, $this->errors, null);
                 }
             }
             else {
                 // run method to render page for Currency converter
-                $this->renderCurrencyConverterPage($_POST, $this->error_messages, null);
+                $this->renderCurrencyConverterPage($_POST, $this->errors, null);
             }
         }
     }
