@@ -16,18 +16,17 @@
         
         public function checkCorrectnessOfRequest() {
             // check whether request is in switch
-            switch($this->file) {
-                case(''):
-                    $mainPage = new Controllers\MainPageController();
-                    $mainPage->show();
-                    break;
-                case('/CurrencyTrackApp/currency-converter'):
-                    #include("src/Controllers/CurrencyConverterController.php");
-                    $currencyConverter = new Controllers\CurrencyConverterController();
-                    $currencyConverter->show();
-                    break;
-                default:
-                    echo $this->file;
+            if($this->file == '') {
+                $mainPage = new Controllers\MainPageController();
+                $mainPage->show();
+            }
+            else if($this->file == '/CurrencyTrackApp/currency-converter') {
+                $currencyConverter = new Controllers\CurrencyConverterController();
+                $currencyConverter->show();
+            }
+            else {
+                http_response_code(404);
+                include('src/Templates/404.html');
             }
         }
     }

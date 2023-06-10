@@ -3,74 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Currency Track App - Currency converter</title>
+    <link href="css/currency_converter.css" rel="stylesheet" type="text/css">
+    <link href="css/header.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <form method="POST" action="/CurrencyTrackApp/currency">
-        <input type="number" name="ammount" min="0" value={{ request_data.ammount }}>
-        <span class="error_message">{{ error_messages.ammount }}</span>
+    {% include 'header.html' %}
 
-        <select name="first_currency">
-            <option selected disabled>Select currency</option>
-            {# print all currencies #}
-            {% for currency in currencies %}
-                {# if current code equals code which was selected add 'selected' into option #}
-                {% if currency.code == request_data.first_currency %}
-                    <option selected>{{ currency.code }}</option>
+    <section class="main">
+        <form method="POST" action="/CurrencyTrackApp/currency-converter">
+            <div class="form-group">
+                <label for="ammountInput">Ammount</label>
+                <input type="number" class="form-control {{errors.ammount.invalid}}" id="ammountInput" name="ammount" value="{{ request_data.ammount }}" placeholder="Enter ammount...">
+                <span class="invalid-feedback">{{ errors.ammount.message }}</span>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="firstCurrencySelect">First currency</label>
+
+                    <select id="firstCurrencySelect" class="form-select {{errors.first_currency.invalid}}" name="first_currency">
+                        <option value="" selected>Select currency</option>
+                        {# print all currencies #}
+                        {% for currency in currencies %}
+                            {# if current code equals code which was selected add 'selected' into option #}
+                            {% if currency.code == request_data.first_currency %}
+                                <option selected>{{ currency.code }}</option>
+                            {% endif %}
+
+                            {# print basic option #}
+                            <option>{{ currency.code }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="invalid-feedback">{{ errors.first_currency.message }}</span>
+                </div>
+
+                <div class="col">
+                    <label for="secondCurrencySelect">Second currency</label>
+
+                    <select id="secondCurrencySelect" class="form-select {{errors.second_currency.invalid}}" name="second_currency">
+                        <option value="" selected>Select currency</option>
+                        {# print all currencies #}
+                        {% for currency in currencies %}
+                            {# if current code equals code which was selected add 'selected' into option #}
+                            {% if currency.code == request_data.second_currency %}
+                                <option selected>{{ currency.code }}</option>
+                            {% endif %}
+
+                            {# print basic option #}
+                            <option>{{ currency.code }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="invalid-feedback">{{ errors.second_currency.message }}</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" name="convert">Submit</button>
+        </form>
+
+        <section class="results_section" id="{{ displayResults }}">
+            <h3>Results</h3>
+            <b><p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p></b>
+        </section>
+
+        <section class="table-responsive-sm table-section">
+            <h4 class="h4">Last currencies converts</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Ammount</th>
+                        <th scope="col">Converted ammount</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% if converts|length > 0 %}
+                    {% for convert in converts %}
+                        <tr>
+                            <td>{{ convert.converts_id }}</td>
+                            <td>{{ convert.first_currency }}</td>
+                            <td>{{ convert.second_currency }}</td>
+                            <td class='w-25'>{{ convert.ammount }}</td>
+                            <td class='w-25'>{{ convert.converted_ammount }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td class="empty-table" colspan="5">No converts</td>
+                    </tr>
                 {% endif %}
-
-                {# print basic option #}
-                <option>{{ currency.code }}</option>
-            {% endfor %}
-        </select>
-        <span class="error_message">{{ error_messages.first_currency }}</span>
-
-        <select name="second_currency">
-            <option selected disabled>Select currency</option>
-            {# print all currencies #}
-            {% for currency in currencies %}
-                {# if current code equals code which was selected add 'selected' into option #}
-                {% if currency.code == request_data.second_currency %}
-                    <option selected>{{ currency.code }}</option>
-                {% endif %}
-
-                {# print basic option #}
-                <option>{{ currency.code }}</option>
-            {% endfor %}
-        </select>
-        <span class="error_message">{{ error_messages.second_currency }}</span>
-
-        <button type="submit" name="convert">Convert</button>
-    </form>
-
-    <section id="results_section" class={{ displayResults }}>
-        <h3>Results</h3>
-        <p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p>
-    </section>
-
-    <section id="last_converts">
-        <table border=1>
-            <thead>
-                <th>Lp.</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Ammount</th>
-                <th>Converted ammount</th>
-            </thead>
-
-            <tboody>
-            {% for convert in converts %}
-                <tr>
-                    <td>{{ convert.converts_id }}</td>
-                    <td>{{ convert.first_currency }}</td>
-                    <td>{{ convert.second_currency }}</td>
-                    <td>{{ convert.ammount }}</td>
-                    <td>{{ convert.converted_ammount }}</td>
-                </tr>
-            {% endfor %}
-            </tboody>
-        </table>
-    </section>
+                </tbody>
+            </table>
+        </section>
+    <section>
 
 </body>
 </html>
