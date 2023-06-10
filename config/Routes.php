@@ -21,7 +21,7 @@
                     $mainPage = new Controllers\MainPageController();
                     $mainPage->show();
                     break;
-                case('/CurrencyTrackApp/currency'):
+                case('/CurrencyTrackApp/currency-converter'):
                     #include("src/Controllers/CurrencyConverterController.php");
                     $currencyConverter = new Controllers\CurrencyConverterController();
                     $currencyConverter->show();
