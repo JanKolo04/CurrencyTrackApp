@@ -1,9 +1,16 @@
+/*--general option--*/
+.h4 {
+    margin-bottom: 20px !important;
+}
+
+/*--main--*/
 .main {
     width: 50%;
     margin: auto;
     margin-top: 30px;
 }
 
+/*--form section--*/
 #ammountInput {
     margin: 5px 0px;
 }
@@ -20,6 +27,7 @@
     margin-top: 15px;
 }
 
+/*--results section--*/
 #hidde {
     display: none;
 }
@@ -29,10 +37,7 @@
     text-align: center;
 }
 
-.h4 {
-    margin-bottom: 20px !important;
-}
-
+/*--table section--*/
 .table-section {
     margin-top: 80px;
     margin-bottom: 50px;
@@ -42,6 +47,7 @@
     text-align: center;
 }
 
+/*--media--*/
 @media only screen and (max-width: 1396px) {
     .main {
         width: 60%;
