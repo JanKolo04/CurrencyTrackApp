@@ -83,5 +83,5 @@ I render pages from Controllers with `twig` because is perfect tool to have good
 Render method which I evoks I pass two data, `main.html.twig` which is file which have to render and assoc array with data to pass into template. Whole twig config is in `/config/TwigConfig.php`.
 ## [Demo](#demo)
 
-To check how this app works you can visit this website https://currencytrackerapp.pl.
+To check how this app works you can visit this website https://currencytrackapp.000webhostapp.com.
 
