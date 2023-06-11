@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Currency Track App - Currency converter</title>
@@ -13,19 +13,19 @@
     {% include 'header.html' %}
 
     <section class="main">
-        <form method="POST" action="/CurrencyTrackApp/currency-converter">
+        <form method="POST" action="/CurrencyTrackApp/kalkulator-przewalutowan">
             <div class="form-group">
-                <label for="ammountInput">Ammount</label>
-                <input type="number" class="form-control {{errors.ammount.invalid}}" id="ammountInput" name="ammount" value="{{ request_data.ammount }}" placeholder="Enter ammount...">
+                <label for="ammountInput">Kwota</label>
+                <input type="number" class="form-control {{errors.ammount.invalid}}" id="ammountInput" name="ammount" value="{{ request_data.ammount }}" placeholder="Wpisz kwotę...">
                 <span class="invalid-feedback">{{ errors.ammount.message }}</span>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label for="firstCurrencySelect">First currency</label>
+                    <label for="firstCurrencySelect">Waluta źródłowa</label>
 
                     <select id="firstCurrencySelect" class="form-select {{errors.first_currency.invalid}}" name="first_currency">
-                        <option value="" selected>Select currency</option>
+                        <option value="" selected>Wybierz walutę</option>
                         {# print all currencies #}
                         {% for currency in currencies %}
                             {# if current code equals code which was selected add 'selected' into option #}
@@ -41,10 +41,10 @@
                 </div>
 
                 <div class="col">
-                    <label for="secondCurrencySelect">Second currency</label>
+                    <label for="secondCurrencySelect">Waluta docelowa</label>
 
                     <select id="secondCurrencySelect" class="form-select {{errors.second_currency.invalid}}" name="second_currency">
-                        <option value="" selected>Select currency</option>
+                        <option value="" selected>Wybierz walutę</option>
                         {# print all currencies #}
                         {% for currency in currencies %}
                             {# if current code equals code which was selected add 'selected' into option #}
@@ -60,24 +60,24 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" name="convert">Submit</button>
+            <button type="submit" class="btn btn-primary" name="convert">Zatwierdź</button>
         </form>
 
         <section class="results_section" id="{{ displayResults }}">
-            <h3>Results</h3>
+            <h3>Wynik</h3>
             <b><p>{{ request_data.first_currency }}: {{ request_data.ammount }}  ->  {{ request_data.second_currency }} {{ converted_ammount }}</p></b>
         </section>
 
-        <section class="table-responsive-sm table-section">
-            <h4 class="h4">Last currencies converts</h4>
+        <div class="table-responsive table-section">
+            <h4 class="h4">Ostatnie przewalutowania</h4>
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
-                        <th scope="col">Ammount</th>
-                        <th scope="col">Converted ammount</th>
+                        <th scope="col">Źródłowa</th>
+                        <th scope="col">Docelowa</th>
+                        <th scope="col">Kwota</th>
+                        <th scope="col">Kwota przewalutowana</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -93,12 +93,12 @@
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td class="empty-table" colspan="5">No converts</td>
+                        <td class="empty-table" colspan="5">Brak przewalutowań</td>
                     </tr>
                 {% endif %}
                 </tbody>
             </table>
-        </section>
+        </div>
     <section>
 
 </body>

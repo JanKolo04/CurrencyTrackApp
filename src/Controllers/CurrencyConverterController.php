@@ -16,19 +16,19 @@
             // check what has not been selected or entered and add new data into array with error messages
             if(empty($_POST['ammount']) && $_POST['ammount'] != 0) {
                 $this->errors += array('ammount' => array(
-                    "message" => "Ammount has not been entered",
+                    "message" => "Kwota nie została wpisana",
                     "invalid" => "is-invalid"
                 ));
             }
             if(empty($_POST['first_currency'])) {
                 $this->errors += array('first_currency' => array(
-                    "message" => "First currency has been not selected",
+                    "message" => "Waluta źródłowa nie została wybrana",
                     "invalid" => "is-invalid"
                 ));
             }
             if(empty($_POST['second_currency'])) {
                 $this->errors += array('second_currency' => array(
-                    "message" => "Second currency has been not selected", 
+                    "message" => "Waluta docelowa nie została wybrana", 
                     "invalid" => "is-invalid"
                 ));
             }
@@ -36,7 +36,7 @@
             // if ammount is less than 1 or more than 100000000 return error on ammount input
             if($_POST['ammount'] < 1 || $_POST['ammount'] > 100000000) {
                 $this->errors += array('ammount' => array(
-                    "message" => "Ammount can't be more than 100000000 and less than 1",
+                    "message" => "Kwota nie może być mniejsza niż 1 i większa niż 100000000",
                     "invalid" => "is-invalid"
                 ));
             }
