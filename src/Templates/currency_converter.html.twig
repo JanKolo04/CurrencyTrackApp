@@ -16,7 +16,7 @@
         <form method="POST" action="/CurrencyTrackApp/kalkulator-przewalutowan">
             <div class="form-group">
                 <label for="ammountInput">Kwota</label>
-                <input type="number" class="form-control {{errors.ammount.invalid}}" id="ammountInput" name="ammount" value="{{ request_data.ammount }}" placeholder="Wpisz kwotę...">
+                <input type="number" class="form-control {{errors.ammount.invalid}}" id="ammountInput" name="ammount" value="{{ request_data.ammount }}" step="0.01" placeholder="Wpisz kwotę...">
                 <span class="invalid-feedback">{{ errors.ammount.message }}</span>
             </div>
 

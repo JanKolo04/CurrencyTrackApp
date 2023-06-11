@@ -34,9 +34,9 @@
             }
             
             // if ammount is less than 1 or more than 100000000 return error on ammount input
-            if($_POST['ammount'] < 1 || $_POST['ammount'] > 100000000) {
+            if($_POST['ammount'] <= 0 || $_POST['ammount'] > 100000000) {
                 $this->errors += array('ammount' => array(
-                    "message" => "Kwota nie może być mniejsza niż 1 i większa niż 100000000",
+                    "message" => "Kwota nie może być mniejsza lub równa 0 i większa niż 100000000",
                     "invalid" => "is-invalid"
                 ));
             }
@@ -64,12 +64,12 @@
         /**
          * convertCurrency() method to convert ammount in first select currency to second selected currency
          * 
-         * @param int $ammount entered ammount
+         * @param float $ammount entered ammount
          * @param string $firstCode code of first selected currency
          * @param string $secondCode code of second selected currency
          * @return float
          */
-        private function convertCurrency(int $ammount, string $firstCode, string $secondCode): float
+        private function convertCurrency(float $ammount, string $firstCode, string $secondCode): float
         {   
             // calculate exchange rate bettween two currencies
             $exchangeRate = $this->getExchangeRate($firstCode, $secondCode);
