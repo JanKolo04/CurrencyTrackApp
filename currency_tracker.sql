@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 11 Cze 2023, 16:20
+-- Czas generowania: 12 Cze 2023, 01:18
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 8.0.19
 
@@ -89,6 +89,13 @@ CREATE TABLE `last_converts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Zrzut danych tabeli `last_converts`
+--
+
+INSERT INTO `last_converts` (`converts_id`, `first_currency`, `second_currency`, `ammount`, `converted_ammount`) VALUES
+(1, 'USD', 'PLN', 20, 83.09);
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -113,13 +120,13 @@ ALTER TABLE `last_converts`
 -- AUTO_INCREMENT dla tabeli `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `currency_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3172;
+  MODIFY `currency_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3535;
 
 --
 -- AUTO_INCREMENT dla tabeli `last_converts`
 --
 ALTER TABLE `last_converts`
-  MODIFY `converts_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `converts_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
