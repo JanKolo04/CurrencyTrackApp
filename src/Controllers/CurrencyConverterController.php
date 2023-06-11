@@ -34,9 +34,9 @@
             }
             
             // if ammount is less than 1 or more than 100000000 return error on ammount input
-            if($_POST['ammount'] <= 0 || $_POST['ammount'] > 100000000) {
+            if($_POST['ammount'] < 0.01 || $_POST['ammount'] > 100000000) {
                 $this->errors += array('ammount' => array(
-                    "message" => "Kwota nie może być mniejsza lub równa 0 i większa niż 100000000",
+                    "message" => "Kwota nie może być mniejsza niż 0.01 i większa niż 100000000",
                     "invalid" => "is-invalid"
                 ));
             }
