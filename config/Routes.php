@@ -20,7 +20,7 @@
                 $mainPage = new Controllers\MainPageController();
                 $mainPage->show();
             }
-            else if($this->file == 'CurrencytTrackApp/kalkulator-przewalutowan') {
+            else if($this->file == '/CurrencyTrackApp/kalkulator-przewalutowan') {
                 $currencyConverter = new Controllers\CurrencyConverterController();
                 $currencyConverter->show();
             }

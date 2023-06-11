@@ -13,7 +13,7 @@
     {% include 'header.html' %}
 
     <section class="main">
-        <form method="POST" action="/CurrencytTrackApp/kalkulator-przewalutowan" novalidate>
+        <form method="POST" action="/CurrencyTrackApp/kalkulator-przewalutowan" novalidate>
             <div class="form-group">
                 <label for="ammountInput">Kwota</label>
                 <input type="number" class="form-control {{errors.ammount.invalid}}" id="ammountInput" name="ammount" value="{{ request_data.ammount }}" step="0.01" min="0" max="100000000" placeholder="Wpisz kwotę...">
