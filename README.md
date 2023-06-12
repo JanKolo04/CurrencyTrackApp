@@ -30,14 +30,14 @@ And after all instalations you can open project http://localhost/CurrencyTrackAp
 #### Main page
 
 ```http
-/CurrencyTrackApp
+GET /CurrencyTrackApp
 ```
 On the main page you will be table with currency name, code and price.
 
 #### Currency converter
 
 ```http
-/CurrencyTrackApp/kalkulator-przewalutowan
+GET /CurrencyTrackApp/kalkulator-przewalutowan
 ```
 
 On this page you will be able to convert ammount from currency to another, also you will be see table with lasts currency converts.
