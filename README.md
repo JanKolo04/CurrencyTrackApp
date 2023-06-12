@@ -25,6 +25,24 @@ Used packages:
 - twig/twig: ^3.6
 
 And after all instalations you can open project http://localhost/CurrencyTrackApp/
+## [Website Reference](#website-reference)
+
+#### Main page
+
+```http
+/CurrencyTrackApp
+```
+On the main page you will be table with currency name, code and price.
+
+#### Currency converter
+
+```http
+/CurrencyTrackApp/kalkulator-przewalutowan
+```
+
+On this page you will be able to convert ammount from currency to another, also you will be see table with lasts currency converts.
+
+
 ## [Usage/Examples](#usage-examples)
 
 Here is a part of `BaseController` which is basic controller which is extends in every controller. In firts lines I define namespace, import classes and set define const variable which is called `API_REQUEST` and its value is link into nbp api. In this part od class you can see `__construct` method which set value for properties.
